@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seobaek <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: seobaek <seobaek@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/07 14:25:58 by seobaek           #+#    #+#             */
-/*   Updated: 2020/04/07 15:24:24 by seobaek          ###   ########.fr       */
+/*   Created: 2021/01/16 20:35:06 by seobaek           #+#    #+#             */
+/*   Updated: 2021/01/16 21:06:08 by seobaek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
 
-void	ft_putendl_fd(char *s, int fd)
+int	ft_isdigit(int c)
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	return (c >= '0' && c <= '9');
 }

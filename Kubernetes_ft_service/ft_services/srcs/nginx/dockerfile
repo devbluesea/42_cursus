@@ -1,0 +1,25 @@
+FROM	alpine:3.12
+
+RUN		apk add nginx openssh openssl && \
+		apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache && \
+		mkdir -p /run/nginx && \
+		echo "root:toor" | chpasswd && \
+		openssl req -x509 -nodes -days 365 \
+		-newkey rsa:2048 -subj "/C=KO/ST=Seoul/L=Gaepodong/O=42Seoul/CN=ft_services" \
+		-keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt && \
+		openssl dhparam -dsaparam -out /etc/ssl/certs/dhparam.pem 2048
+
+RUN		ssh-keygen -A
+
+COPY	/srcs/sshd_config			/etc/ssh/
+COPY	/srcs/telegraf.conf			/etc/telegraf/
+COPY	/srcs/nginx.conf			/etc/nginx/
+COPY	/srcs/ssl_params.conf		/etc/nginx/
+COPY	/srcs/index.html			/var/www/
+COPY	/srcs/start.sh				/
+
+RUN		echo 'Welcome to SSH of nginx by parmarti' > /etc/motd
+
+EXPOSE	80 443 22
+
+ENTRYPOINT	sh start.sh
